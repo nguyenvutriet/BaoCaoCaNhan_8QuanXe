@@ -77,12 +77,13 @@ def kiemTraTrangThaiDich(arr_):
     else: 
         return False
     
-def kiemTraTrangThaiDich_KGKhongChacChan(arr_):
+def kiemTraTrangThaiDich_Ver2(arr_):
     soLuong = np.sum(arr_ == 1)
     if soLuong == 8:
         #inBanCoNguoiChoi(arr_)
         # chỉ tìm kiếm đến khi nào đạt được trạng thái ai toàn
         return trangThaiAnToan(arr_)
+    return False
 
 def ResultAndOrTree(state, action):
     states = deque()
@@ -230,7 +231,12 @@ def Herurictics_PartiallyObservable(niemTin: deque):
 
     return Cost 
 
-            
+def F(tapGiaTri, row, col):
+    tapGTNew = []
+    for i in tapGiaTri:
+        if i[0] != row and i[1] != col:
+            tapGTNew.append(i)
+    return tapGTNew        
 
 
 
@@ -346,6 +352,24 @@ def suKienNhanNut():
             text_Area.insert(END, "Đã tìm thấy tập trạng thái hợp lệ\n")
         else:
             text_Area.insert(END, "Không tìm thấy trạng thái hợp lệ")
+        text_Area.update()
+        text_Area.config(state="disabled")
+    elif thuatToan == "CSP BackTracking":
+        text_Area.insert(END, "Thuật toán: CSP BackTracking\nĐang chạy\n")
+        if CSP_Backtracking() is not None: 
+            text_Area.insert(END, "Đã tìm thấy mục tiêu!!\n")
+        else:
+            text_Area.insert(END, "Không tìm thấy mục tiêu!!\n")
+        text_Area.insert(END,"Đã chạy xong!!\n")
+        text_Area.update()
+        text_Area.config(state="disabled")
+    elif thuatToan == "CSP Forward Checking":
+        text_Area.insert(END, "Thuật toán: CSP Forward Checking\nĐang chạy\n")
+        if CSP_FORWARDCHECKING() is not None:
+            text_Area.insert(END, "Đã tìm thấy mục tiêu!!\n")
+        else:
+            text_Area.insert(END, "Không tìm thấy mục tiêu!!\n")
+        text_Area.insert(END, "Đã chạy xong!!\n")
         text_Area.update()
         text_Area.config(state="disabled")
     
@@ -685,7 +709,7 @@ def UniformCostSearch():
 
         if kiemTraTrangThaiDich(state):
             inBanCoNguoiChoi(state)
-            lbl_ChiPhi.config(text="Chi Phí: " + str(chiPhi))
+            
             #tinhChiPhi(state)
             return state
         
@@ -791,7 +815,7 @@ def GreedySearch():
         if kiemTraTrangThaiDich(state):
             print(arrFlagDemo)
             inBanCoNguoiChoi(state, arrFlagDemo)
-            lbl_ChiPhi.config(text="Chi Phí: " + str(chiPhi))
+            
             return state
 
         if row == 8:
@@ -836,7 +860,7 @@ def RecursiveAndOrTreeSearch_DFS():
 def OrSearch(state, path: deque):
     # HÀNH ĐỘNG ĐẶT THEO CỘT 
     # kiểm tra trạng thái đích 
-    if kiemTraTrangThaiDich_KGKhongChacChan(state):
+    if kiemTraTrangThaiDich_Ver2(state):
         return state 
     
     # kiểm tra có chu trình hay không 
@@ -1029,7 +1053,103 @@ def PartiallyPbservable_GreedySearch():
 
 # 2.5. NHÓM TÌM KIẾM THÕA MÃN RÀNG BUỘC
 # 2.5.1. CSP_BACKTRACKING
+def CSP_Backtracking():
+    # tập biến
+    tapBien = [1,1,1,1,1,1,1,1]
+    # tập giá trị
+    tapGiaTri = [[0,0], [0,1], [0,2], [0,3], [0,4], [0,5], [0,6], [0,7],
+                 [1,0], [1,1], [1,2], [1,3], [1,4], [1,5], [1,6], [1,7],
+                 [2,0], [2,1], [2,2], [2,3], [2,4], [2,5], [2,6], [2,7],
+                 [3,0], [3,1], [3,2], [3,3], [3,4], [3,5], [3,6], [3,7],
+                 [4,0], [4,1], [4,2], [4,3], [4,4], [4,5], [4,6], [4,7],
+                 [5,0], [5,1], [5,2], [5,3], [5,4], [5,5], [5,6], [5,7],
+                 [6,0], [6,1], [6,2], [6,3], [6,4], [6,5], [6,6], [6,7],
+                 [7,0], [7,1], [7,2], [7,3], [7,4], [7,5], [7,6], [7,7]]
+    # tập ràng buộc: không đặt cùng hàng và cùng cột, đạt trạng thái an toàn
+    result = Backtracking(tapBien, tapGiaTri, np.zeros((8,8), dtype=int))
+
+    if result is not None:
+        inBanCoNguoiChoi(result)
+        return True
+    else:
+        return None
+
+def Backtracking(tapBien, tapGT, arr):
+
+    if kiemTraTrangThaiDich_Ver2(arr):
+        return arr
+    else:
+        if len(tapBien) == 0:
+            return None
+    
+    bien = random.randint(0,len(tapBien)-1)
+
+    arrCopy = copy.deepcopy(arr)
+    for i in range(len(tapGT)):
+        if arrCopy[tapGT[i][0]][tapGT[i][1]] == 0:
+            arrCopy[tapGT[i][0]][tapGT[i][1]] = tapBien[bien]
+            if trangThaiAnToan(arrCopy):
+                tapBienNew = tapBien[:]
+                tapGTNew = tapGT[:]
+                del tapBienNew[bien]
+                del tapGTNew[i]
+                result = Backtracking(tapBienNew, tapGTNew,arrCopy)
+                if result is not None:
+                    return result
+
+            arrCopy[tapGT[i][0]][tapGT[i][1]] = 0
+
+    return None
+
 # 2.5.2. CSP_FORWARDCHECKING
+def CSP_FORWARDCHECKING():
+    # tập biến
+    tapBien = [1,1,1,1,1,1,1,1]
+    # tập giá trị
+    tapGiaTri = [[0,0], [0,1], [0,2], [0,3], [0,4], [0,5], [0,6], [0,7],
+                 [1,0], [1,1], [1,2], [1,3], [1,4], [1,5], [1,6], [1,7],
+                 [2,0], [2,1], [2,2], [2,3], [2,4], [2,5], [2,6], [2,7],
+                 [3,0], [3,1], [3,2], [3,3], [3,4], [3,5], [3,6], [3,7],
+                 [4,0], [4,1], [4,2], [4,3], [4,4], [4,5], [4,6], [4,7],
+                 [5,0], [5,1], [5,2], [5,3], [5,4], [5,5], [5,6], [5,7],
+                 [6,0], [6,1], [6,2], [6,3], [6,4], [6,5], [6,6], [6,7],
+                 [7,0], [7,1], [7,2], [7,3], [7,4], [7,5], [7,6], [7,7]]
+    # tập ràng buộc: không đặt cùng hàng và cùng cột, đạt trạng thái an toàn
+
+    result = ForwardChecking(tapBien, tapGiaTri, np.zeros((8,8), dtype=int))
+
+    if result is not None:
+        inBanCoNguoiChoi(result)
+        return True
+    else:
+        return None
+    
+def ForwardChecking(tapBien, tapGT, arr):
+    if kiemTraTrangThaiDich_Ver2(arr):
+        return arr
+    else:
+        if len(tapBien) == 0:
+            return None
+    
+    bien = random.randint(0,len(tapBien)-1)
+
+    arrCopy = copy.deepcopy(arr)
+    for i in range(len(tapGT)):
+        if arrCopy[tapGT[i][0]][tapGT[i][1]] == 0:
+            arrCopy[tapGT[i][0]][tapGT[i][1]] = tapBien[bien]
+            if trangThaiAnToan(arrCopy):
+                tapBienNew = tapBien[:]
+                tapGTNew = F(tapGT, tapGT[i][0], tapGT[i][1])
+                del tapBienNew[bien]
+                result = ForwardChecking(tapBienNew, tapGTNew,arrCopy)
+                if result is not None:
+                    return result
+
+            arrCopy[tapGT[i][0]][tapGT[i][1]] = 0
+
+    return None
+
+
 # 2.5.3. CSP_AC3ARTCONCISTENCY
 
 
@@ -1054,9 +1174,7 @@ btn_BatDau = Button(frm_TrangThai, text="Bắt Đầu", font=("Times New Roman",
                     fg="white", bg="#0593D0", width=10, command=suKienNhanNut)
 btn_BatDau.grid(row=0, column=0, pady=5, padx=10, sticky="w")
 
-lbl_ChiPhi = Label(frm_TrangThai, text="Chi Phí: 0", font=("Times New Roman", 20, "bold"),
-                   fg="blue", bg="#EBD9D1")
-lbl_ChiPhi.grid(row=0, column=1, pady=5, padx=10, sticky="e")
+
 
 lbl_ThoiGian = Label(frm_Main, text="Bàn Cờ Mẫu", font=("Times New Roman", 24, "bold"), fg="red", bg="#EBD9D1")
 lbl_ThoiGian.grid(row=1, column=1, padx=10, sticky="n")

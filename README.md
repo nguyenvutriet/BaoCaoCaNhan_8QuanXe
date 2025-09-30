@@ -1,18 +1,31 @@
 # Báo Cáo Cá Nhân: Nguyễn Vũ Triết - MSSV: 23110161
----
 
 # BÀI TOÁN 8 QUÂN XE
 
 ## 1. Giới thiệu bài toán
-**Hiệu suất**: tìm kiếm ra giải pháp nhanh nhất, các quân xe đặt ở các vị trí không ăn nhau.
-**Môi trường**: ma trận 8x8, 8 quân xe.
-**Truyền động**: đặt quân xe vào ô hợp lý trên bàn cờ hoặc di chuyển quân xe.
-**Cảm biến**: kiểm tra trạng thái an toàn giữa các quân xe, kiểm tra trạng thái mục tiêu của bàn cờ.
+**Hiệu suất**: tìm kiếm ra giải pháp nhanh nhất, các quân xe đặt ở các vị trí không ăn nhau.<br>
+**Môi trường**: ma trận 8x8, 8 quân xe.<br>
+**Truyền động**: đặt quân xe vào ô hợp lý trên bàn cờ hoặc di chuyển quân xe.<br>
+**Cảm biến**: kiểm tra trạng thái an toàn giữa các quân xe, kiểm tra trạng thái mục tiêu của bàn cờ.<br>
 
 ## 2. Các thuật toán
+⚠️ **Lưu ý**: Do vấn đề về bộ nhớ nên lúc sinh trạng thái trong tất các các thuật toán được sử dụng hầu như đều sử dụng sinh theo hàng. 
 ### *2.1.  Nhóm thuật toán tìm kiếm không có thông tin*
 
 1. __Tìm kiếm theo chiều rộng (BFS)__
+- Tìm kiếm theo chiều rộng [(Breadth First Search)](https://vi.wikipedia.org/wiki/T%C3%ACm_ki%E1%BA%BFm_theo_chi%E1%BB%81u_r%E1%BB%99ng) sử dụng một queue (FIFO) để chứa các trạng thái được sinh ra từ trạng thái ban đầu. 
+- Hướng dẫn BFS:
+Đầu vào: Bài toán 8 quân xe, trạng thái ban đầu, queue.
+Đầu ra: Giải pháp tìm thấy trạng thái mục tiêu.
+Đưa vào queue trạng thái ban đầu
+Loop:
+    1. Lấy một trạng thái từ queue ra.
+    2. Nếu là trạng thái mục tiêu thì return.
+    3. sinh các trạng thái có thể có từ trạng thái lấy ra từ queue đó.
+
+- Kết quả sau áp dụng thuật toán:
+![](D:\HCMUTE_IT\HK1_2025-2026\Artificial Intelligence\Báo Cáo Cá Nhân\Img\BFS.gif)
+
 
 2. __Tìm kiếm theo chiều sâu (DFS)__
 
@@ -58,7 +71,7 @@ tkinter:
     ```python
     pip install numpy
     ```
-    
+    Các thư viện khác cần import: math, queue, random, collections.
 
 
 
