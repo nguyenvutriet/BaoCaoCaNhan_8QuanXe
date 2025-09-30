@@ -14,17 +14,17 @@
 
 1. __Tìm kiếm theo chiều rộng (BFS)__
 - Tìm kiếm theo chiều rộng [(Breadth First Search)](https://vi.wikipedia.org/wiki/T%C3%ACm_ki%E1%BA%BFm_theo_chi%E1%BB%81u_r%E1%BB%99ng) sử dụng một queue (FIFO) để chứa các trạng thái được sinh ra từ trạng thái ban đầu. 
-- Hướng dẫn BFS:
-Đầu vào: Bài toán 8 quân xe, trạng thái ban đầu, queue.
-Đầu ra: Giải pháp tìm thấy trạng thái mục tiêu.
-Đưa vào queue trạng thái ban đầu
+- Hướng dẫn BFS:<br>
+Đầu vào: Bài toán 8 quân xe, trạng thái ban đầu, queue.<br>
+Đầu ra: Giải pháp tìm thấy trạng thái mục tiêu.<br>
+Đưa vào queue trạng thái ban đầu<br>
 Loop:
     1. Lấy một trạng thái từ queue ra.
     2. Nếu là trạng thái mục tiêu thì return.
     3. sinh các trạng thái có thể có từ trạng thái lấy ra từ queue đó.
 
 - Kết quả sau áp dụng thuật toán:
-![](D:\HCMUTE_IT\HK1_2025-2026\Artificial Intelligence\Báo Cáo Cá Nhân\Img\BFS.gif)
+![](/Img/BFS.gif)
 
 
 2. __Tìm kiếm theo chiều sâu (DFS)__
