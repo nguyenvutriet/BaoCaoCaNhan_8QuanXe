@@ -13,7 +13,7 @@
 ### *2.1.  Nhóm thuật toán tìm kiếm không có thông tin*
 
 1. __Tìm kiếm theo chiều rộng (BFS)__
-- Tìm kiếm theo chiều rộng [(Breadth First Search)](https://vi.wikipedia.org/wiki/T%C3%ACm_ki%E1%BA%BFm_theo_chi%E1%BB%81u_r%E1%BB%99ng) sử dụng một queue (FIFO) để chứa các trạng thái được sinh ra từ trạng thái ban đầu. 
+- Tìm kiếm theo chiều rộng [(Breadth First Search)](https://vi.wikipedia.org/wiki/T%C3%ACm_ki%E1%BA%BFm_theo_chi%E1%BB%81u_r%E1%BB%99ng) sử dụng cấu trúc queue (FIFO) để chứa các trạng thái được sinh ra. 
 - Hướng dẫn BFS:<br>
 Đầu vào: Bài toán 8 quân xe, trạng thái ban đầu, queue.<br>
 Đầu ra: Giải pháp tìm thấy trạng thái mục tiêu.<br>
@@ -28,7 +28,18 @@ Loop:
 
 
 2. __Tìm kiếm theo chiều sâu (DFS)__
+- Tìm kiếm theo chiều sâu [(Depth First Search)](https://vi.wikipedia.org/wiki/T%C3%ACm_ki%E1%BA%BFm_theo_chi%E1%BB%81u_s%C3%A2u) sử dụng cấu trúc stack (LIFO) để chứa các trạng thái sinh ra.
+- Hướng dẫn DFS:<br>
+Đầu vào: Bài toán 8 quân xe, trạng thái ban đầu, stack.<br>
+Đầu ra: Giải pháp tìm thấy trạng thái mục tiêu.<br>
+Đưa vào stack trạng thái ban đầu<br>
+Loop:
+    1. Lấy một trạng thái từ stack ra.
+    2. Nếu là trạng thái mục tiêu thì return.
+    3. sinh các trạng thái có thể có từ trạng thái lấy ra từ queue đó.
 
+- Kết quả sau áp dụng thuật toán: 
+![](/Img/DFS.gif)
 3. __UCS__
 
 4. __Iterative Deepening Search__
@@ -72,7 +83,6 @@ tkinter:
     pip install numpy
     ```
     Các thư viện khác cần import: math, queue, random, collections.
-
 
 
 ## 4. Hướng dẫn chạy chương trình
