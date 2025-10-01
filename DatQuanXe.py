@@ -6,6 +6,7 @@ from queue import PriorityQueue
 from tkinter import ttk
 import math
 import random
+import time 
 
 root = Tk()
 root.title("Đặt 8 quân xe")
@@ -251,125 +252,180 @@ def suKienNhanNut():
             btns[i][j].config(text="")
     if thuatToan == "Greedy Search":
         text_Area.insert(END, "Thuật toán: Greedy Search\nĐang chạy\n")
+        start = time.time()
         GreedySearch()
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Breadth First Search":
         text_Area.insert(END, "Thuật toán: Breadth First Search\nĐang chạy\n")
+        start = time.time()
         BreadthFirstSearch()
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Depth First Search":
         text_Area.insert(END, "Thuật toán: Depth First Search\nĐang chạy\n")
+        start = time.time()
         DepFirstSearch()
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Iterative Deepening Search With DLS":
         text_Area.insert(END, "Thuật toán: Iterative Deepening Search With DLS\nĐang chạy\n")
+        start = time.time()
         IterativeDeepening_DLS()
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Iterative Deepening Search With DFS":
         text_Area.insert(END, "Thuật toán: Iterative Deepening Search With DFS\nĐang chạy\n")
+        start = time.time()
         IterativeDeepening_DFS()
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Depth Limited Search":
         text_Area.insert(END, "Thuật toán: Depth Limited Search\nĐang chạy\n")
+        start = time.time()
         DepthLimitedSearch(np.zeros((8,8), dtype=int), 0, 8)
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Uniform Cost Search":
         text_Area.insert(END, "Thuật toán: Uniform Cost Search\nĐang chạy\n")
+        start = time.time()
         UniformCostSearch()
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "A* Search":
         text_Area.insert(END, "Thuật toán: A* Search\nĐang chạy\n")
+        start = time.time()
         AStarSearch()
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Hill Climbing":
         text_Area.insert(END, "Thuật toán: Hill Climbing\nĐang chạy\n")
+        start = time.time()
         if HillClimbing() == None:
             text_Area.insert(END, "Không thể sinh tiếp trạng thái!!\n")
         elif HillClimbing() == False:
             text_Area.insert(END, "Không có trạng thái nào tốt hơn trạng thái hiện tại!!\n")
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Simulated Annealing":
         text_Area.insert(END, "Thuật toán: Simulated Annealing\nĐang chạy\n")
+        start = time.time()
         SimulatedAnnealing()
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Beam Search":
         text_Area.insert(END, "Thuật toán: Beam Search\nĐang chạy\n")
+        start = time.time()
         if BeamSearch() != None:
+            end = time.time()
             text_Area.insert(END, "Đã chạy xong!!\n")
+            text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
             text_Area.update()
             text_Area.config(state="disabled")
         else:
+            end = time.time()
             text_Area.insert(END, "Kết thúc!!\nKhông tìm thấy mục tiêu!\n")
+            text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
             text_Area.update()
             text_Area.config(state="disabled")
     elif thuatToan == "Genetic Algorithms":
         text_Area.insert(END, "Thuật toán: Genetic Algorithms\nĐang chạy\nGiới hạn mã Gen = 1000\n")
+        start = time.time()
         if GeneticAlgorithms() == None:
             text_Area.insert(END, "Chưa tìm thấy mục tiêu!\n")
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Recursive And Or Tree Search":
         text_Area.insert(END, "Thuật toán: Recursive And Or Tree Search\n(Lưu ý: Chỉ tìm thấy cách đặt nào hợp lý,\nkhông tìm ra một mục tiêu cụ thể)\nĐang chạy\n")
+        start = time.time()
         if RecursiveAndOrTreeSearch_DFS() is False:
             text_Area.insert(END, "Không tìm thấy!!\n")
         else:
             text_Area.insert(END, "Đã tìm thấy một tập các trạng thái hợp lý\n")
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Search in an unobservable environment":
         text_Area.insert(END, "Thuật toán: Search in an unobservable environment\n(lưu ý: Chỉ tìm thấy tập các trạng thái hợp lệ\nkhông cần tìm theo bàn cờ mẫu)\nĐang chạy\n")
+        start = time.time()
         if SearchUnobservable_DFS() is not None:
             text_Area.insert(END, "Đã tìm thấy một tập các trạng thái hợp lệ\n(chỉ in 1 trạng thái trong tập)\n")
         else:
             text_Area.insert(END, "Trạng thái niềm tin kết thúc chưa đa dạng\nnên không thể tìm thấy\n")
+        end = time.time()
+        text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "Search In Partially Observable Environment":
         text_Area.insert(END, "Thuật toán: Search In Partially Observable Environment WITH Greedy Search\n(Lưu ý: Chỉ tìm thấy tập nào giống tập mục tiêu và\nbàn cờ in bên trên chỉ là phần tử trong tập đó)\nĐang chạy\n")
+        start = time.time()
         if PartiallyPbservable_GreedySearch() is not None:
             text_Area.insert(END, "Đã tìm thấy tập trạng thái hợp lệ\n")
         else:
             text_Area.insert(END, "Không tìm thấy trạng thái hợp lệ")
+        end = time.time()
+        text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "CSP BackTracking":
         text_Area.insert(END, "Thuật toán: CSP BackTracking\nĐang chạy\n")
+        start = time.time()
         if CSP_Backtracking() is not None: 
             text_Area.insert(END, "Đã tìm thấy mục tiêu!!\n")
         else:
             text_Area.insert(END, "Không tìm thấy mục tiêu!!\n")
+        start = time.time()
         text_Area.insert(END,"Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     elif thuatToan == "CSP Forward Checking":
         text_Area.insert(END, "Thuật toán: CSP Forward Checking\nĐang chạy\n")
+        start = time.time()
         if CSP_FORWARDCHECKING() is not None:
             text_Area.insert(END, "Đã tìm thấy mục tiêu!!\n")
         else:
             text_Area.insert(END, "Không tìm thấy mục tiêu!!\n")
+        end = time.time()
         text_Area.insert(END, "Đã chạy xong!!\n")
+        text_Area.insert(END, f"Tổng thời gian chạy: {end-start:.2f}s\n")
         text_Area.update()
         text_Area.config(state="disabled")
     
@@ -765,7 +821,6 @@ def DepFirstSearch():
         else:
             if(row + 1) < 8:
                 stack.append((state, row + 1))
-        #root.after(50)
         root.update_idletasks()
     return None
 
