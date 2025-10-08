@@ -277,7 +277,7 @@ Loop với số lượng mã Gen cố định:
 ## 3. Môi trường phát triển
 - Ngôn ngữ: Python
 - Version: tải python 3.13.7 từ [python.org]( https://www.python.org/)
-- Thư viện: cài đặt thư viện 
+- Thư viện: cài đặt các thư viện:
 tkinter:
     ```python
     pip install tkinter
@@ -292,10 +292,11 @@ tkinter:
     ```python
     pip install pygame
     ```
-
+    PIL:
     ```python
     pip install Pillow
     ```
+    Matplotlib: 
     ```python
     pip install matplotlib
     ```
