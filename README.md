@@ -11,7 +11,7 @@ SVTT: Nguyễn Vũ Triết - MSSV: 23110161
 **Cảm biến**: kiểm tra trạng thái an toàn giữa các quân xe, kiểm tra trạng thái mục tiêu của bàn cờ.<br>
 
 ## 2. Các thuật toán
-⚠️ **Lưu ý**: Do vấn đề về bộ nhớ nên lúc sinh trạng thái trong tất các các thuật toán được sử dụng hầu như đều sử dụng sinh theo hàng. 
+⚠️ **Lưu ý**: Do vấn đề về bộ nhớ nên lúc sinh trạng thái trong tất cả các thuật toán được sử dụng hầu như đều sử dụng sinh theo hàng. 
 ### *2.1.  Nhóm thuật toán tìm kiếm không có thông tin*
 
 1. __Tìm kiếm theo chiều rộng (BFS)__
@@ -118,7 +118,6 @@ Hàm đệ quy:
 ![](/Img/DLS.gif)
 
 6. __Đánh giá các thuật toán trong nhóm tìm kiếm không có thông tin__
-<br>
 ![](/Img/DanhGiaN1.gif)
 
 ### *2.2.Nhóm thuật toán tìm kiếm có thông tin*
@@ -165,7 +164,6 @@ Loop:
 ![](/Img/AS.gif)
 
 3. __Đánh giá nhóm thuật toán tìm kiếm có thông tin__
-<br>
 ![](/Img/DanhGiaN2.gif)
 
 ### *2.3. Nhóm thuật toán tìm kiếm Local Search*
@@ -261,7 +259,6 @@ Loop với số lượng mã Gen cố định:
 ![](/Img/GA.gif)
 
 5. __Đánh giá nhóm thuật toán Local Search
-<br>
 ![](/Img/DanhGiaN3.gif)
 
 ### *2.4. Nhóm thuật toán tìm kiếm trong môi trường phức tạp*
@@ -331,7 +328,6 @@ Loop với số lượng mã Gen cố định:
 ![](/Img/POS.gif)
 
 4. __Đánh giá nhóm thuật toán tìm kiếm trong môi trường phức tạp__
-<br>
 ![](/Img/DanhGiaN4.gif)
 
 
@@ -356,7 +352,7 @@ Loop với số lượng mã Gen cố định:
         7. return None
 
 - Kết quả khi áp dụng thuật toán:
-1[](/Img/CSP_BTK.gif)
+![](/Img/CSP_BTK.gif)
 
 2. __CSP Forward Checking__
 - Thông qua quá trình quan sát thì thuật toán CSP Backtracking sẽ thử hết tất các các giá trị nằm trong miền điều này dễ dẫn tới việc bộ nhớ quá lớn và tốn thời gian. Để giảm thiểu việc này mỗi lần ta đặt quân xe ra sẽ giới hạn lại tập giá trị, khi đặt quân xe lên sẽ giảm các vị trí mà quân xe đã đặt đó tấn công được. Đây được gọi là thuật toán Forward Checking.
@@ -401,7 +397,6 @@ Loop với số lượng mã Gen cố định:
 ![](/Img/AC3.gif)
 
 4. __Đánh giá nhóm thuật toán tìm kiếm trong môi trường thõa mãn ràng buộc__
-<br>
 ![](/Img/DanhGiaN5.gif)
 
 ### *2.6. Nhóm thuật toán tìm kiếm đối kháng*
@@ -463,7 +458,6 @@ Loop với số lượng mã Gen cố định:
 ![](/Img/AlphaB.gif)
 
 3. __Đánh giá nhóm thuật toán tìm kiếm đối kháng__
-<br>
 ![](/Img/DanhGiaN6.gif)
 
 ## 3. Môi trường phát triển
@@ -500,22 +494,22 @@ tkinter:
 
 - chọn nút ***Start***
 ![](/Img/Home.png)
-<br>
+
 - Sau khi nhấn nút ***Start*** chương trình sẽ đi vào giao diện bên dưới:
 ![](/Img/CTMain.png)
-<br>
+
 - Xổ **Combobox** xuống để chọn thuật toán:
 ![](/Img/CBB.png)
-<br>
+
 - Nhấn chuột vào thuật toán bạn muốn chọn và nhấn nút ***Chay*** chương trình sẽ hiện ra các thông tin của thuật toán.
 ![](/Img/Chay.png)
-<br>
+
 - Sau khi một thuật toán chạy xong có thể chọn các thuật toán khác để chạy tiếp.
 ![](/Img/Chay1.png)
-<br>
+
 - Nút ***XemDT*** để hiển thị đánh giá các thuật toán, trục tung là không gian trạng thái, trục hoành là thời gian chạy thuật toán.
 ![](/Img/DT.png)
-<br>
+
 - Nút ***Reset*** để *clear* toàn bộ thông tin trên giao diện.
 
 ## 5. Một số thông tin khác
@@ -525,8 +519,8 @@ tkinter:
 - Controller: Kiểm soát việc tương tác giữa View mà Model.
 - Hình ảnh Minh hoạc mô hình MVC cho bài toán 8 quân xe:
 ![](/Img/MVC.png)
-<br>
-- Giải thích cách hoạt động:
+
+- Giải thích cách hoạt động:<br>
     1. Chương trình Home sẽ gọi đến View để hiển thị giao diện.
     2. Nếu Home chọn thuật toán thì View sẽ gửi yêu cầu đến Controller.
     3. Controller nhận diện và truyền lại thông tin này đến Model để chạy thuận toán.
