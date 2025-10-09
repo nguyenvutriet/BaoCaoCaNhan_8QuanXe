@@ -1250,129 +1250,154 @@ class DatQuanXeModel:
 
     # NHÓM 6: THUẬT TOÁN TÌM KIẾM ĐỐI KHÁNG
     def Minimax_Decision(self):
-        self.controller.loiOrLuuY("Lưu ý: ", "Bài toán chỉ tìm ra trạng thái \nhợp lệ.")
+        self.controller.loiOrLuuY("Lưu ý: ", "Thuật toán Minimax chỉ tìm ra trạng thái \nhợp lệ cho 8 quân xe.")
         self.soTT = 0
-        VT = None
-        giaTri = -math.inf
-        for col in range(8):
-            state = np.zeros((8,8), dtype=int)
-            vt = []
-            danhGia = 0
-            states = (state, vt, danhGia)
-            gt, v = self.MinValue(self.Result(states, col))
-            if gt > giaTri:
-                giaTri = gt
-                VT = v
-        if VT is not None:
-            self.controller.inBanCo(VT)
+        state = (np.zeros((8,8), dtype=int), [], 0) 
+        
+        best_score = -math.inf
+        best_state = None
+        
+        # MAX bắt đầu đặt xe vào từng cột
+        for action in self.Actions(state):
+            value, VT = self.Min_Value(self.Result(state, action))
+            if value > best_score:
+                best_score = value
+                best_state = VT
+        
+        if best_state is not None:
+            self.controller.inBanCo(best_state)
             self.controller.setSoTrangThai(self.soTT)
             self.controller.setColor(None)
             self.controller.dungDemGio()
-            return
+        else:
+            self.controller.loiOrLuuY("Lỗi", "Không tìm thấy trạng thái hợp lệ.")
+            self.controller.setColor(False)
+            self.controller.dungDemGio()
+
+    def Max_Value(self, state):
+        if self.Terminal_Test(state):
+            return self.Utility(state)
         
-        self.controller.setSoTrangThai(self.soTT)
-        self.controller.setColor(False)
-        self.controller.dungDemGio()
-        self.controller.loiOrLuuY("Lỗi", "Không tìm thấy mục tiêu.")
-        return None
-    def MinValue(self, states):
-        for i in range(len(states)):
-            if self.kiemTraTrangThaiDich_Ver2(states[i][0]):
-                return states[i][2], states[i][1]
-            
-        v = math.inf
-        VT = None
-        for col in range(8):
-            if 1 not in states[i][0][:, col]:
-                gt, vt = self.MaxValue(self.Result(states[i], col))
-                if gt < v:
-                    v = gt
-                    VT = vt
-        return v, VT
-    def MaxValue(self, states):
-        for i in range(len(states)):
-            if self.kiemTraTrangThaiDich_Ver2(states[i][0]):
-                return states[i][2], states[i][1]
         v = -math.inf
         VT = None
-        for col in range(8):
-            if 1 not in states[i][0][:, col]:
-                gt, vt = self.MinValue(self.Result(states[i], col))
-                if gt > v:
-                    v = gt
-                    VT = vt
+        for action in self.Actions(state):
+            a, VT = self.Min_Value(self.Result(state, action))
+            v = max(v, a)
+            
         return v, VT
+
+    def Min_Value(self, state):
+        if self.Terminal_Test(state):
+            return self.Utility(state)
+        
+        v = math.inf
+        VT = None
+        for action in self.Actions(state):
+            a, VT = self.Max_Value(self.Result(state, action))
+            v = min(v, a)
+
+        return v, VT
+
+    def Terminal_Test(self, state):
+        board, vt, score = state
+        # Kết thúc khi đã đặt 8 quân hợp lệ hoặc không còn cột nào trống
+        return len(vt) == 8 or len(self.Actions(state)) == 0
+
+    def Utility(self, state):
+        board, vt, score = state
+        if self.kiemTraTrangThaiDich_Ver2(board):
+            return 100, vt
+        return len(vt) * 10 - self.demXungDot(board) * 20, vt
+
+    def Actions(self, state):
+        board, vt, score = state
+        actions = []
+        for col in range(8):
+            # Nếu cột chưa có xe
+            if 1 not in board[:, col]:
+                actions.append(col)
+        return actions
+
     def Result(self, state, action):
-        states = []
+        board, vt, score = state
+        states = None
+        
         for row in range(8):
-            stateCopy = copy.deepcopy(state[0])
-            stateCopy[row][action] = 1
-            vtNew = copy.deepcopy(state[1])
-            if self.trangThaiAnToan(stateCopy):
-                self.soTT += 1
-                vtNew.append([row, action])
-                danhGia = state[2] + self.chiPhiHeruristics(row, action)
-                states.append((stateCopy, vtNew, danhGia))
+            board_copy = copy.deepcopy(board)
+            if board_copy[row][action] == 0:
+                board_copy[row][action] = 1
+                if self.trangThaiAnToan(board_copy):
+                    vt_new = copy.deepcopy(vt)
+                    vt_new.append([row, action])
+                    self.soTT += 1
+                    new_score = score + self.chiPhiHeruristics(row, action)
+                    states = (board_copy, vt_new, new_score)
+                    break
         return states
+    
+    def demXungDot(self, board):
+        """Đếm số cặp xe đang ăn nhau trên cùng hàng hoặc cột."""
+        count = 0
+        for i in range(8):
+            if np.sum(board[i, :]) > 1:  # hàng
+                count += 1
+            if np.sum(board[:, i]) > 1:  # cột
+                count += 1
+        return count
     
     
     def AlphaBetaPruning(self):
-        state = np.zeros((8,8), dtype=int)
-        vt = []
-        danhGia = 0
-        states = [(state, vt, danhGia)]
-        self.controller.loiOrLuuY("Lưu ý: ", "Bài toán chỉ tìm ra trạng thái \nhợp lệ.")
+        self.controller.loiOrLuuY("Lưu ý: ", "Thuật toán AlphaBeta chỉ tìm ra trạng thái \nhợp lệ cho 8 quân xe.")
         self.soTT = 0
-
-        result_GT, VT = self.MaxValue_AB(states,-math.inf, math.inf)
-
-        if VT is not None:
-            self.controller.inBanCo(VT)
+        state = (np.zeros((8,8), dtype=int), [], 0) 
+        
+        best_score = -math.inf
+        best_state = None
+        
+        # MAX bắt đầu đặt xe vào từng cột
+        for action in self.Actions(state):
+            value, VT = self.Max_Value_AB(self.Result(state, action), -math.inf, math.inf)
+            if value > best_score:
+                best_score = value
+                best_state = VT
+        
+        if best_state is not None:
+            self.controller.inBanCo(best_state)
             self.controller.setSoTrangThai(self.soTT)
             self.controller.setColor(None)
             self.controller.dungDemGio()
-            return
+        else:
+            self.controller.loiOrLuuY("Lỗi", "Không tìm thấy trạng thái hợp lệ.")
+            self.controller.setColor(False)
+            self.controller.dungDemGio()
+
+
+    def Max_Value_AB(self, state, alpha, beta):
+        if self.Terminal_Test(state):
+            return self.Utility(state)
         
-        self.controller.setSoTrangThai(self.soTT)
-        self.controller.setColor(False)
-        self.controller.dungDemGio()
-        self.controller.loiOrLuuY("Lỗi", "Không tìm thấy mục tiêu.")
-        return None
-
-
-    def MaxValue_AB(self, states, Alpha, Beta):
-        for i in range(len(states)):
-            if self.kiemTraTrangThaiDich_Ver2(states[i][0]):
-                return states[i][2], states[i][1]
         v = -math.inf
         VT = None
-        for col in range(8):
-            if 1 not in states[i][0][:, col]:
-                gt, vt = self.MinValue_AB(self.Result(states[i], col), Alpha, Beta)
-                if gt > v:
-                    v = gt
-                    VT = vt
-                if v >= Beta:
-                    return v, VT
-                Alpha = max(Alpha, v)
+        for action in self.Actions(state):
+            a, VT = self.Min_Value_AB(self.Result(state, action), alpha, beta)
+            v = max(v, a)
+            if v >= beta:
+                return v, VT
+            alpha = max(alpha, v)
         return v, VT
-    
-    def MinValue_AB(self, states, Alpha, Beta):
-        for i in range(len(states)):
-            if self.kiemTraTrangThaiDich_Ver2(states[i][0]):
-                return states[i][2], states[i][1]
-            
+
+    def Min_Value_AB(self, state, alpha, beta):
+        if self.Terminal_Test(state):
+            return self.Utility(state)
+        
         v = math.inf
         VT = None
-        for col in range(8):
-            if 1 not in states[i][0][:, col]:
-                gt, vt = self.MaxValue_AB(self.Result(states[i], col), Alpha, Beta)
-                if gt < v:
-                    v = gt
-                    VT = vt
-                if v <= Alpha:
-                    return v, VT
-                Beta = min(Beta, v)
+        for action in self.Actions(state):
+            a, VT = self.Max_Value_AB(self.Result(state, action), alpha, beta)
+            v = min(v, a)
+            if v <= alpha:
+                return v, VT
+            beta = min(beta, v)
         return v, VT
 
 

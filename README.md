@@ -46,6 +46,7 @@ Loop:
 
 - Kết quả sau áp dụng thuật toán: 
 ![](/Img/DFS.gif)
+
 3. __Tìm kiếm chi phí đồng đều (UCS)__
 - Thuật toán tìm kiếm chi phí đồng đều [(Uninform Cost Search)](https://vi.wikipedia.org/wiki/T%C3%ACm_ki%E1%BA%BFm_chi_ph%C3%AD_%C4%91%E1%BB%81u) sử dụng hàng đợi [Priority Queue](https://en.wikipedia.org/wiki/Priority_queue) để lưu trữ các trạng thái được sinh ra. Tìm kiếm các chi phí trên đường đi có chi phí nhỏ nhất đến trạng thái mục tiêu.
 - Chi phí mà UCS sử dụng là Path Cost (chi phí từ trạng thái ban đầu đến trạng thái hiện tại).
@@ -67,7 +68,7 @@ Loop:
 - Một số sách viết tắt thuật toán theo chiều sâu lặp lại là IDS hoặc IDL. Nhưng thường sử dụng nhất là IDS.
 - Thuật toán này có 2 hướng sử dụng: được sử dụng với DFS và BFS hoặc DLS và BFS. 
 
-- Hướng dẫn IDS với DLS:
+- Hướng dẫn IDS với DLS:<br>
 Đầu vào: Bài toán 8 quân xe, trạng thái ban đầu, thuật toán DLS.<br>
 Đầu ra: Giải pháp từ trạng thái ban đầu đến trạng thái mục tiêu.<br>
 Loop độ sâu tăng từ 1:
@@ -117,6 +118,7 @@ Hàm đệ quy:
 ![](/Img/DLS.gif)
 
 6. __Đánh giá các thuật toán trong nhóm tìm kiếm không có thông tin__
+<br>
 ![](/Img/DanhGiaN1.gif)
 
 ### *2.2.Nhóm thuật toán tìm kiếm có thông tin*
@@ -163,6 +165,7 @@ Loop:
 ![](/Img/AS.gif)
 
 3. __Đánh giá nhóm thuật toán tìm kiếm có thông tin__
+<br>
 ![](/Img/DanhGiaN2.gif)
 
 ### *2.3. Nhóm thuật toán tìm kiếm Local Search*
@@ -258,6 +261,7 @@ Loop với số lượng mã Gen cố định:
 ![](/Img/GA.gif)
 
 5. __Đánh giá nhóm thuật toán Local Search
+<br>
 ![](/Img/DanhGiaN3.gif)
 
 ### *2.4. Nhóm thuật toán tìm kiếm trong môi trường phức tạp*
@@ -282,8 +286,7 @@ Loop với số lượng mã Gen cố định:
         2. return tập trạng thái đều là mục tiêu.
 
 - Kết quả khi áp dụng thuật toán:
-![](/Img/)
-
+![](/Img/ANDOR.gif)
 
 2. __Tìm kiếm trong môi trường không nhìn thấy__
 - Thuật toán [tìm kiếm trong môi trường không nhìn thấy](https://staff.agu.edu.vn/nvhoa/AI/lecture2.pdf) ban đầu sẽ không xác định được vị trí hay có thông tin rằng mình đang ở đâu mà phải xây dựng một tập niềm tin ban đầu và muốn biết được kết quả thì cũng xây dựng nên tập niềm tin mục tiêu.
@@ -305,7 +308,7 @@ Loop với số lượng mã Gen cố định:
         4. mội lần thực hiện 1 hành động sinh ra một tập các trạng thái của bàn cờ và đưa vào stack.
 
 - Kết quả thi áp dụng thuật toán: 
-![](/Img/)
+![](/Img/UnE.gif)
 
 3. __Tìm kiếm trong môi trường nhìn thấy một phần__
 - Thuật toán [tìm kiếm trong môi trường nhìn thấy một phần](https://staff.agu.edu.vn/nvhoa/AI/lecture2.pdf) có thể coi là phiên bản tối ưu của phiên bản tìm kiếm trong môi trường không nhìn thấy. Thay vì không nhìn thấy mà đi tìm kiếm mục tiêu mù quáng thì ở đây sẽ nhìn thấy được một hoặc 2 vị trí hoặc có thể hơn trong niềm tin ban đầu.
@@ -325,7 +328,11 @@ Loop với số lượng mã Gen cố định:
         4. Đưa các tập trạng thái sinh ra vào priorityQueue.
 
 - Kết quả khi áp dụng thuật toán: 
-![]()
+![](/Img/POS.gif)
+
+4. __Đánh giá nhóm thuật toán tìm kiếm trong môi trường phức tạp__
+<br>
+![](/Img/DanhGiaN4.gif)
 
 
 ### *2.5. Nhóm thuật toán tìm kiếm thõa mãn ràng buộc*
@@ -349,7 +356,8 @@ Loop với số lượng mã Gen cố định:
         7. return None
 
 - Kết quả khi áp dụng thuật toán:
-1[](/Img/)
+1[](/Img/CSP_BTK.gif)
+
 2. __CSP Forward Checking__
 - Thông qua quá trình quan sát thì thuật toán CSP Backtracking sẽ thử hết tất các các giá trị nằm trong miền điều này dễ dẫn tới việc bộ nhớ quá lớn và tốn thời gian. Để giảm thiểu việc này mỗi lần ta đặt quân xe ra sẽ giới hạn lại tập giá trị, khi đặt quân xe lên sẽ giảm các vị trí mà quân xe đã đặt đó tấn công được. Đây được gọi là thuật toán Forward Checking.
 - Thuật toán này có thể xem là phiên bản tối ưu hơn của Backtracking.
@@ -370,12 +378,93 @@ Loop với số lượng mã Gen cố định:
         7. return None
 
 - Kết quả khi áp dụng thuật toán:
-![](/Img/) 
+![](/Img/CSP_FTK.gif)
+
 3. __AC-3 Art Concistencey__
+- Thuật toán [AC-3](https://en.wikipedia.org/wiki/AC-3_algorithm) được xây dựng dựa trên việc tinh giảm miền giá trị trước khi đưa vào quá trình Backtracking. Mỗi quân xe sẽ có một miền giá trị riêng cho mình, thay vì mỗi lần gọi backtracking sau khi đặt thì mới cắt giảm miền giá trị giống Forward Checking thì AC-3 sẽ chọn lọc ra mỗi miền giá trị riêng thuộc về mỗi quân xe bằng việc thõa mãn ràng buộc nào đó.
+- Hướng dẫn:<br>
+Đầu vào: Bài toán 8 quân xe, tập biến, tập giá trị và các ràng buộc.<br>
+Đầu ra: Trạng thái đặt 8 quân xe hợp lý.<br>
+    1. Xây dựng tập biến.
+    2. Xây dựng tập giá trị cho mỗi biến.
+    3. Gọi hàm AC3:
+        1. Tạo các cặp quân xe và đưa vào queue.
+        2. Gọi hàm revise để kiểm tra: 
+            1. Nếu một giá trị của x không thão màn ràng buộc với tất cả giá trị của y trong miền giá trị của y thì sẽ xóa giá trị x đó và trả về True
+            2. Nếu có một giá thị x thõa màn ràng buộc với một giá trị của y thì trả về False.
+        3. Nếu hàn revise là True thì kiểm tra:
+            1. Nếu miền giá trị của x đã bị xóa hết thì return False
+            2. Đưa các biến hàng xóm không phải y ghép thành cặp với x và đưa vào queue. 
+    4. Sau khi miền giá trị của các quân xe đã bị cắt giảm thì bắt đầu gọi hàm Backtracking để tìm ra mục tiêu.
+
+- Kết quả sau khi áp dụng thuật toán: 
+![](/Img/AC3.gif)
+
+4. __Đánh giá nhóm thuật toán tìm kiếm trong môi trường thõa mãn ràng buộc__
+<br>
+![](/Img/DanhGiaN5.gif)
 
 ### *2.6. Nhóm thuật toán tìm kiếm đối kháng*
 1. __MiniMax Decision__
+- Thuật toán [MiniMax Decision](https://vi.wikipedia.org/wiki/Minimax) thuộc nhóm tìm kiếm đối kháng bởi vì nó tồn tại 2 hàm quyết định là Min và Max. Max là luôn tìm kiếm trạng thái tốt nhất trong số các trạng thái mà hàm Min đưa. Còn Min thì chọn các  trạng thái Nhỏ nhất được sinh ra để làm hại Max. 
+- Do sự cạnh tranh như vậy nên số trạng thái sinh ra của thuật toán có thể rất lớn.
+- Hướng dẫn: <br>
+Đầu vào: Bài toán 8 quân xe, trạng thái ban đầu.<br>
+Đầu ra: Trạng thái đặt 8 quân xe phù hợp.<br>
+    1. Khởi tạo trạng thái ban đầu, điểm đanh giá, lưu vị trí đặt xe.
+    2. Loop với mỗi cột có thể đặt:
+        1. Gọi hàm Min trả về value đánh giá và mảng lưu vị trí.
+        2. Chọn mảng có value cao nhất.
+    3. Hàm Min:
+        1. Kiểm tra nếu đặt đủ 8 quân xe trả về 100, mảng lưu vị trí nếu không thì trả về điểm đanh giá và vị trí các quân.
+        2. khởi tạo v = inf và Loop với mỗi cột có thể đặt
+            1. Gọi hàm Min.
+            2. Chọn giá trị nhỏ nhất giữa v và giá trị trả về của Max.
+        3. Trả về v, mảng lưu vị trí các quân.
+    4. Hàm Max:
+        1. Kiểm tra nếu đặt đủ 8 quân xe trả về 100, mảng lưu vị trí nếu không thì trả về điểm đanh giá và vị trí các quân.
+        2. khởi tạo v = inf và Loop với mỗi cột có thể đặt
+            1. Gọi hàm Min.
+            2. Chọn giá trị lớn nhất giữa v và giá trị trả về của Min.
+        3. Trả về v, mảng lưu vị trí các quân.
+
+- Kết quả sau khi áp dụng thuật toán:
+![](/Img/MiniMax.gif)
+
 2. __Alpha-Beta-Pruning__
+- Thuật toán [Alpha-Beta Pruning](https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning) giảm số lượng các trạng thái sinh ra của bài toán. Ở thuật toán MiniMax trong khi duyệt hết tất cả trạng thái có thể thì ở đây thay vì nó duyệt hết có chặn các tham số alpha và beta. Nếu giá v trong Min mà nhỏ hơn alpha và v trong Max mà lớn hơn Beta thì trả về v không cần duyệt tiếp.
+- Với cách hoạt động như vậy thuật toán giúp giảm đáng kể số lượng trạng thái sinh ra trong chương trình.
+- Hướng dẫn:<br>
+Đầu vào: Bài toán 8 quân xe, trạng thái ban đầu.<br>
+Đầu ra: Trạng thái đặt 8 quân xe phù hợp.<br>
+    1. Khởi tạo trạng thái ban đầu, điểm đanh giá, lưu vị trí đặt xe.
+    2. Loop với mỗi cột có thể đặt:
+        1. Khởi tạo Alpha=-inf, Beta=inf
+        2. Gọi hàm Max trả về value đánh giá và mảng lưu vị trí.
+        3. Chọn mảng có value cao nhất.
+    3. Hàm Min:
+        1. Kiểm tra nếu đặt đủ 8 quân xe trả về 100, mảng lưu vị trí nếu không thì trả về điểm đanh giá và vị trí các quân.
+        2. khởi tạo v = inf và Loop với mỗi cột có thể đặt
+            1. Gọi hàm Min.
+            2. Chọn giá trị nhỏ nhất giữa v và giá trị trả về của Max.
+            3. Nếu v <= Alpha thì return v, vị trí quân xe.
+            4. Beta = min(v, Beta).
+        3. Trả về v, mảng lưu vị trí các quân.
+    4. Hàm Max:
+        1. Kiểm tra nếu đặt đủ 8 quân xe trả về 100, mảng lưu vị trí nếu không thì trả về điểm đanh giá và vị trí các quân.
+        2. khởi tạo v = inf và Loop với mỗi cột có thể đặt
+            1. Gọi hàm Min.
+            2. Chọn giá trị lớn nhất giữa v và giá trị trả về của Min.
+            3. Nếu v >= Beta thì return v, vị trí quân xe.
+            4. Alpha = max(v, Alpha).
+        3. Trả về v, mảng lưu vị trí các quân.
+
+- Kết quả sau khi áp dụng thuật toán:
+![](/Img/AlphaB.gif)
+
+3. __Đánh giá nhóm thuật toán tìm kiếm đối kháng__
+<br>
+![](/Img/DanhGiaN6.gif)
 
 ## 3. Môi trường phát triển
 - Ngôn ngữ: Python
@@ -407,6 +496,45 @@ tkinter:
     Các thư viện khác cần import: math, queue, random, collections, threading, time. <br>
 
 ## 4. Hướng dẫn chạy chương trình
+- chạy file **Home.py**
+
+- chọn nút ***Start***
+![](/Img/Home.png)
+<br>
+- Sau khi nhấn nút ***Start*** chương trình sẽ đi vào giao diện bên dưới:
+![](/Img/CTMain.png)
+<br>
+- Xổ **Combobox** xuống để chọn thuật toán:
+![](/Img/CBB.png)
+<br>
+- Nhấn chuột vào thuật toán bạn muốn chọn và nhấn nút ***Chay*** chương trình sẽ hiện ra các thông tin của thuật toán.
+![](/Img/Chay.png)
+<br>
+- Sau khi một thuật toán chạy xong có thể chọn các thuật toán khác để chạy tiếp.
+![](/Img/Chay1.png)
+<br>
+- Nút ***XemDT*** để hiển thị đánh giá các thuật toán, trục tung là không gian trạng thái, trục hoành là thời gian chạy thuật toán.
+![](/Img/DT.png)
+<br>
+- Nút ***Reset*** để *clear* toàn bộ thông tin trên giao diện.
+
+## 5. Một số thông tin khác
+- Để dễ quả lý code trong bài trên ta xây dựng theo mô hình MVC (Model-View-Controller)
+- View: trong đây chỉ xử lý các đoạn liên quan tới giao diện.
+- Model: là phần bên trong của bài toán, nơi chạy các thuật toán AI, chứa bàn cờ là ma trận 0 8x8 kèm theo một số hàm phụ để bổ trợ cho các thuật toán.
+- Controller: Kiểm soát việc tương tác giữa View mà Model.
+- Hình ảnh Minh hoạc mô hình MVC cho bài toán 8 quân xe:
+![](/Img/MVC.png)
+<br>
+- Giải thích cách hoạt động:
+    1. Chương trình Home sẽ gọi đến View để hiển thị giao diện.
+    2. Nếu Home chọn thuật toán thì View sẽ gửi yêu cầu đến Controller.
+    3. Controller nhận diện và truyền lại thông tin này đến Model để chạy thuận toán.
+    4. Model chạy xong sẽ báo kết quả đến cho Controller.
+    5. Controller gửi lại cho View để hiển thị kết quả cho Home xem.
+
+
+
 
 
 
