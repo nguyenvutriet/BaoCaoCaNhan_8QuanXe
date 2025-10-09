@@ -258,7 +258,7 @@ Loop với số lượng mã Gen cố định:
 - Kết quả sau khi áp dụng thuật toán:
 ![](/Img/GA.gif)
 
-5. __Đánh giá nhóm thuật toán Local Search
+5. __Đánh giá nhóm thuật toán Local Search__
 ![](/Img/DanhGiaN3.gif)
 
 ### *2.4. Nhóm thuật toán tìm kiếm trong môi trường phức tạp*
