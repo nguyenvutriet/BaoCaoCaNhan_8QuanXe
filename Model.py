@@ -770,7 +770,7 @@ class DatQuanXeModel:
                     self.controller.setColor(True)
                     self.controller.dungDemGio()
                     return 
-            queueQuanThe = quanTheMoi
+            queueQuanThe = copy.deepcopy(quanTheMoi)
             Gen += 1
 
         self.controller.setSoTrangThai(soTT)
