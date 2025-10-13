@@ -1154,11 +1154,10 @@ class DatQuanXeModel:
         self.controller.loiOrLuuY("Lưu ý: ", "Bài toán chỉ tìm ra trạng thái \nhợp lệ.")
         tapGiaTri = [[i, j] for i in range(8) for j in range(8)]
         tB = [(i+1, copy.deepcopy(tapGiaTri)) for i in range(8)]
-        self.tapBien = copy.deepcopy(tB)
         self.soTT = 0
         result = self.AC3(tB)
-        if result:
-            vt = self.Backtracking_AC3(copy.deepcopy(self.tapBien), np.zeros((8,8), dtype=int), [])
+        if result is not None:
+            vt = self.Backtracking_AC3(result, np.zeros((8,8), dtype=int), [])
             if vt  is not None:
                 self.controller.inBanCo(vt)
                 self.controller.setSoTrangThai(self.soTT)
@@ -1200,53 +1199,67 @@ class DatQuanXeModel:
 
     def AC3(self, tb):
         queue = deque()
+        tapBienRG = []
+        processed = set()  
+        index = 0
+
         for i in tb:
+            index += 1
             for j in tb:
                 if i[0] != j[0]:
-                    queue.append((i, j))
-        
+                    tapBienRG.append(i)
+                    queue.append((i, j, index, index+1))
+                    processed.add((i[0], j[0]))  
+
         while len(queue) != 0:
-            Xi, Xj = queue.popleft()
-            
-            if self.revise(Xi, Xj):
-                if len(Xi[1]) == 0:
-                    return False
-                
-                for k in tb:
-                    if k[0] != Xi[0] and k[0] != Xj[0]:
-                        queue.append((k, Xi))
+            Xi, Xj, qx, qy = queue.popleft()
 
-        return True
+            Flag, mienGT = self.revise(Xi, Xj, qx, qy, tb)
 
-    def revise(self, Xi: tuple, Xj: tuple):
+            if Flag:
+                if len(mienGT) == 0:
+                    return None
+
+                bienXi = copy.deepcopy(Xi[0])
+
+                for i in tapBienRG:
+                    if i[0] == bienXi and len(mienGT) < len(i[1]):
+                        tapBienRG[tapBienRG.index(i)] = (i[0], mienGT)
+
+                for k in range(len(tb)):
+                    if tb[k][0] != Xi[0] and tb[k][0] != Xj[0]:
+                        # chỉ thêm nếu chưa xử lý
+                        if (tb[k][0], Xi[0]) not in processed:
+                            queue.append((tb[k], Xi, k+1, qx))
+                            processed.add((tb[k][0], Xi[0]))
+
+        return tapBienRG
+
+
+    def revise(self, Xi: tuple, Xj: tuple, qx, qy, tB):
         revised = False
         to_remove = []
+        mienGTNew = copy.deepcopy(Xi[1])
         
         for i in Xi[1]:
-            if not self.RangBuoc(i, Xj[1]):
+            if not self.RangBuoc(i, Xj[1], qx, qy):
                 to_remove.append(i)
                 revised = True
         
-        for i in to_remove:
-            Xi[1].remove(i)
-        
-        for idx, bien in enumerate(self.tapBien):
-            if Xi[0] == bien[0]:
-                self.tapBien[idx] = Xi
-                break
-        
-        return revised
-
-    def RangBuoc(self, x, y):
-        for j in y:
-            arr = np.zeros((8, 8), dtype=int)
-            arr[x[0]][x[1]] = 1
-            arr[j[0]][j[1]] = 1
+        for value in to_remove:
+            if value in mienGTNew:
+                mienGTNew.remove(value)
             
-            if self.trangThaiAnToan(arr):
-                return True
         
-        return False
+        return revised, mienGTNew
+
+    def RangBuoc(self, x, dy, qx, qy):
+        if x[0] == (qx-1):
+            return True
+        if x[1] == (qx-1):
+            return True
+        if x in dy:
+            return False
 
     # NHÓM 6: THUẬT TOÁN TÌM KIẾM ĐỐI KHÁNG
     def Minimax_Decision(self):

@@ -120,6 +120,19 @@ Hàm đệ quy:
 6. __Đánh giá các thuật toán trong nhóm tìm kiếm không có thông tin__
 ![](/Img/DanhGiaN1.gif)
 
+
+| Tên thuật toán | Thời gian | Không gian | Trạng thái | Đánh giá |
+|----------------|------------|-------------|-------------|-----------|
+| BFS | 30.82s | 109600 | Đã tìm thấy mục tiêu | Thuật toán đã tìm thấy mục tiêu nhưng thời gian và không gian quá lớn. |
+| DFS | 4.92s | 16100 | Đã tìm thấy mục tiêu | Đối với bài toán 8 quân xe, thuật toán DFS chạy rất nhanh với số lượng trạng thái sinh ra ít hơn BFS rất nhiều. |
+| UCS | 12.6s | 54954 | Đã tìm thấy mục tiêu | Thuật toán này chạy nhanh hay không phụ thuộc vào cách tính chi phí. Chi phí ở đây được tính theo khoảng cách từ vị trí hiện tại đến mục tiêu; cách tính này chưa tối ưu nên không gian sinh ra vẫn còn khá nhiều. |
+| DLS | 24.37s | 93529 | Đã tìm thấy mục tiêu | Đây là phiên bản mở rộng của DFS, nhưng việc đệ quy nhiều lần từ độ sâu ban đầu đến độ sâu giới hạn rất tốn thời gian và không gian. |
+| IDS (DFS) | 20.59s | 125692 | Đã tìm thấy mục tiêu | Việc đệ quy nhiều lần với DFS sinh ra khá nhiều trạng thái và tốn tài nguyên. |
+| IDS (DLS) | 42.13s | 203121 | Đã tìm thấy mục tiêu | Gọi đệ quy nhiều lần với 2 nhánh DLS khiến sinh rất nhiều trạng thái, giống như gọi DLS 2 lần. |
+
+**Đánh giá chung:**  
+Thuật toán **DFS** là tối ưu nhất cho bài toán này, với **thời gian 4.92s** và **không gian 16100**.
+
 ### *2.2.Nhóm thuật toán tìm kiếm có thông tin*
 1. __Gready Search__
 - Thuật toán [Greedy Search](https://en.wikipedia.org/wiki/Greedy_algorithm) sử dụng cấu trúc Priority Queue để lưu các trạng thái sinh ra từ bàn cờ. Mỗi lần lấy trạng thái ra Greedy chọn trạng thái có chi phí tốt nhất (chi phí thấp nhất). 
@@ -165,6 +178,16 @@ Loop:
 
 3. __Đánh giá nhóm thuật toán tìm kiếm có thông tin__
 ![](/Img/DanhGiaN2.gif)
+
+| Tên thuật toán | Thời gian | Không gian | Trạng thái | Đánh giá |
+|----------------|------------|-------------|-------------|-----------|
+| Greedy Search | 1.08s | 2016 | Đã tìm thấy mục tiêu | hàm ướng lượng chi phí từ trạng thái hiện tại đến mục tiêu gần chính xác nên thuật toán chạy rất nhanh và không gian sinh ra cũng rất ít.|
+| A* Search | 23.4s | 96794 | Đã tìm thấy mục tiêu | chi phí được tính theo herurictics và path cost nếu một trong 2 thằng không đánh giá đúng thì thuật toán sẽ chạy khá lâu và sinh ra nhiều trạng thái. |
+
+**Đánh giá chung:**  
+Thuật toán **Greedy Search** là tối ưu nhất cho bài toán này, với **thời gian 1.08s** và **không gian 2016**.
+
+
 
 ### *2.3. Nhóm thuật toán tìm kiếm Local Search*
 1. __Hill climbing__
@@ -261,6 +284,17 @@ Loop với số lượng mã Gen cố định:
 5. __Đánh giá nhóm thuật toán Local Search__
 ![](/Img/DanhGiaN3.gif)
 
+| Tên thuật toán | Thời gian | Không gian | Trạng thái | Đánh giá |
+|----------------|------------|-------------|-------------|-----------|
+| Hill Climbing | 0.32s | 30 | Không tìm thấy mục tiêu | thuật toán này không hiệu quả, nó chỉ tìm kiếm trong cục bộ mà không đi ra ngoài nên dễ bị dừng và trong bài toán 8 quân xe sẽ không tìm được một mục tiêu nào. |
+| Simulated Annealling | 0.61s | 36 | Không tìm thấy mục tiêu | Tuy đã có thể tìm ra cục bộ nhưng nó chỉ chấp nhận khi thõa mãn một xác suất nên việc tìm thấy một mục tiêu thì rất khó, nhưng nó cũng tốt hơn Hill Climbing|
+| Beam Search | 0.75s | 382 | Đã tìm thấy mục tiêu | Với giá trị k = 2, thuật toán sẽ tìm ra 2 trạng thái tốt, thuật toán này có thể được coi là tốt nhất trong nhóm này. | 
+| Genetic Algorithms | 0.38s | 15674 | Không tìm thấy mục tiêu | với số lượng mã Gen = 1000 thì thuật toán sẽ không tìm thấy, nhưng nếu như mã Gen vô hạn thì việc tìm thấy mục tiêu là có thể nhưng số lượng cá thể sinh ra là rất lớn máy tính không thể chịu nối. |
+
+**Đánh giá chung:**  
+Thuật toán **Beam Search** là tối ưu nhất cho bài toán này, với **thời gian 0.75s** và **không gian 382**.
+
+
 ### *2.4. Nhóm thuật toán tìm kiếm trong môi trường phức tạp*
 1. __And-Or Tree Search__
 - Thuật toán [And-Or Tree Search](https://en.wikipedia.org/wiki/And%E2%80%93or_tree) có thể được sử dụng chung với các nhóm thuật toán có thông tin và không có thông tin. Trong bài toán này thuật toán này được sử dụng chung với thuật toán DFS. Ban đầu thuật toán sẽ gọi hàm Or sẽ xác định việc sinh ra các hành động và đảm bảo bột trong các hành động là mục tiêu thì trả về. Sau khi quyết định được hành động gọi hàm And và truyền vào một tập các trạng thái sinh ra từ hành động đặt và phải thõa mãn các trạng thái sinh ra từ hành động Or phải tìm thấy mục tiêu. 
@@ -330,6 +364,15 @@ Loop với số lượng mã Gen cố định:
 4. __Đánh giá nhóm thuật toán tìm kiếm trong môi trường phức tạp__
 ![](/Img/DanhGiaN4.gif)
 
+| Tên thuật toán | Thời gian | Không gian | Trạng thái | Đánh giá |
+|----------------|------------|-------------|-------------|-----------|
+| And-Or | 29.88s | 109600 | Tìm ra vị trí đặt hợp lệ | thuật toán gọi đề quy liên tục nên khá tốn thời gian và sinh ra trạng thái khá nhiều. | 
+| MT không nhìn thấy | 5.09s | 1006 | Không tìm thấy mục tiêu | xây dựng tập niềm tin mục tiêu khá ít nên khi chạy niềm tin ban đâu khó có thể tìm ra mục tiêu vì mục tiêu không nằm trong tập niềm tin mục tiêu | 
+| MT nhìn thấy một phần | 0.66s | 16 | Tìm ra vị trí đặt hợp lệ | Do đã biết trước được một mục tiêu cụ thể và xây dựng hàm ước lượng chi phí gần chính xác nên mục sẽ tìm ra vị trí khá nhanh.|
+
+**Đánh giá chung:**  
+Thuật toán **tìm kiếm trong môi trường nhìn thấy một phần** là tối ưu nhất cho bài toán này, với **thời gian 0.66s** và **không gian 16**.
+
 
 ### *2.5. Nhóm thuật toán tìm kiếm thõa mãn ràng buộc*
 1. __CSP Backtracking__
@@ -352,7 +395,7 @@ Loop với số lượng mã Gen cố định:
         7. return None
 
 - Kết quả khi áp dụng thuật toán:
-![](/Img/CSP_BTK.gif)
+![](/Img/BackTK.gif)
 
 2. __CSP Forward Checking__
 - Thông qua quá trình quan sát thì thuật toán CSP Backtracking sẽ thử hết tất các các giá trị nằm trong miền điều này dễ dẫn tới việc bộ nhớ quá lớn và tốn thời gian. Để giảm thiểu việc này mỗi lần ta đặt quân xe ra sẽ giới hạn lại tập giá trị, khi đặt quân xe lên sẽ giảm các vị trí mà quân xe đã đặt đó tấn công được. Đây được gọi là thuật toán Forward Checking.
@@ -374,7 +417,7 @@ Loop với số lượng mã Gen cố định:
         7. return None
 
 - Kết quả khi áp dụng thuật toán:
-![](/Img/CSP_FTK.gif)
+![](/Img/FW.gif)
 
 3. __AC-3 Art Concistencey__
 - Thuật toán [AC-3](https://en.wikipedia.org/wiki/AC-3_algorithm) được xây dựng dựa trên việc tinh giảm miền giá trị trước khi đưa vào quá trình Backtracking. Mỗi quân xe sẽ có một miền giá trị riêng cho mình, thay vì mỗi lần gọi backtracking sau khi đặt thì mới cắt giảm miền giá trị giống Forward Checking thì AC-3 sẽ chọn lọc ra mỗi miền giá trị riêng thuộc về mỗi quân xe bằng việc thõa mãn ràng buộc nào đó.
@@ -386,8 +429,8 @@ Loop với số lượng mã Gen cố định:
     3. Gọi hàm AC3:
         1. Tạo các cặp quân xe và đưa vào queue.
         2. Gọi hàm revise để kiểm tra: 
-            1. Nếu một giá trị của x không thão màn ràng buộc với tất cả giá trị của y trong miền giá trị của y thì sẽ xóa giá trị x đó và trả về True
-            2. Nếu có một giá thị x thõa màn ràng buộc với một giá trị của y thì trả về False.
+            1. Nếu thõa mãn ràng buộc một quân xe sẽ di chuyển trên cùng hàng vùng cột, không có quân xe nào di chuyển trên vị trí con kia. nếu thõa mãn thì return True.
+            2. Nếu không thì đưa bớt các giá trị trong miền giá trị không phù hợp vào danh sách để xóa.
         3. Nếu hàn revise là True thì kiểm tra:
             1. Nếu miền giá trị của x đã bị xóa hết thì return False
             2. Đưa các biến hàng xóm không phải y ghép thành cặp với x và đưa vào queue. 
@@ -398,6 +441,15 @@ Loop với số lượng mã Gen cố định:
 
 4. __Đánh giá nhóm thuật toán tìm kiếm trong môi trường thõa mãn ràng buộc__
 ![](/Img/DanhGiaN5.gif)
+
+| Tên thuật toán | Thời gian | Không gian | Trạng thái | Đánh giá |
+|----------------|------------|-------------|-------------|-----------|
+| CSP Backtracking | 0.59s   | 9 | Tìm thấy cách đặt 8 quân xe hợp lệ | thuật toán này chạy khá nhanh do các quân xe sẽ random một vị trí và khi đủ 8 con hợp lệ thuật toán sẽ dừng. khi nhìn vào không gian chỉ có 9 nghĩ là có một quân xe phải random tới 2 lần mới đặt được.|
+| Forward Checking | 0.63s | 8 | Tìm thấy cách đặt 8 quâ xe hợp lệ | thời gian thuật toán này chạy lâu là do phải vừa đặt phải loại bỏ bớt miền giá trị, nhưng cũng thấy thuật toán này chỉ đặt đúng 1 lần vì miền giá trị đã bị loại bỏ bớt qua các lần đặt khi đó chỉ còn lại các giá trị hợp lệ nên chỉ cần đúng 1 lần đặt cho 8 quân xe là tìm thấy vị trí hợp lệ. | 
+| AC3 | 0.63s | 16 | Tìm thấy cách đặt 8 quân xe hợp lệ | nhìn chung thời gian chạy cũng tương đương với ForwardChecking bởi vì thay vì mỗi lần đặt xong loại thì ở đây sẽ loại trước theo ràng buộc rồi mới đặt. Nhưng không gian lại lớn hơn gấp 2 lần, việc này phụ thuộc vào ràng buộc đi kèm nếu ràng buộc đi kèm. Nếu chung quy trung bình ra thì 1 còn có 2 lần đặt khác nhau. |
+
+**Đánh giá chung:**  
+Thuật toán **Forward Checking** là tối ưu nhất cho bài toán này, với **thời gian 0.63s** và **không gian 8**.
 
 ### *2.6. Nhóm thuật toán tìm kiếm đối kháng*
 1. __MiniMax Decision__
@@ -455,10 +507,30 @@ Loop với số lượng mã Gen cố định:
         3. Trả về v, mảng lưu vị trí các quân.
 
 - Kết quả sau khi áp dụng thuật toán:
-![](/Img/AlphaB.gif)
+![](/Img/AB.gif)
 
 3. __Đánh giá nhóm thuật toán tìm kiếm đối kháng__
 ![](/Img/DanhGiaN6.gif)
+
+| Tên thuật toán | Thời gian | Không gian | Trạng thái | Đánh giá |
+|----------------|------------|-------------|-------------|-----------|
+| Minimax | 35.30s | 109600 | Tìm thấy cách đặt 8 quân xe hợp lý | Thời gian chạy khá lâu có lẻ việc chạy đệ quy khá tốn nhiều thời gian và việc hàm Min và Max đối kháng nhau nên tìm lâu ra mục tiêu. Do đó nên không gian sinh ra cũng rất lớn. | 
+| Alpha-Beta Pruning | 1.77s | 4400 | Tìm thấy cách đặt 8 quân xe hợp lý | Thời gian chạy nhanh hơn một cách rõ rệt vì giảm bớt trường hợp sinh ra do phảm đảm bảo ngưỡng alpha và beta do đó mà không gian sinh ra cũng ít hơn khá nhiều so với minimax. | 
+
+**Đánh giá chung:**  
+Thuật toán **Alpha-Beta Pruning** là tối ưu nhất cho bài toán này, với **thời gian 1.77s** và **không gian 4400**.
+
+### *2.7. Bảng đánh giá tổng thể các thuật toán tốt nhất của từng nhóm đối với bài toán*
+
+|       Tên Nhóm        |        Thuật toán       | thời gian | Không gian |    Xếp hạng thuật toán   |
+|-----------------------|-------------------------|-----------|------------|--------------------------|
+|  Không có thông tin   |   Depth First Search    |   4.92s   |   16100    |          6               | 
+|  Có thông tin         |   Greedy Search         |   1.08s   |   2016     |          4               |
+|  Local Search         |   Beam Search           |   0.75s   |   382      |          3               | 
+|  MT Phức tạp          |   MT Nhìn thấy một phần |   0.66s   |   16       |          2               | 
+|  Thõa mãn ràng buộc   |   ForwardChecking       |   0.63s   |   8        |          1               | 
+|  Đối kháng            |   Alpha-Beta Pruning    |   1.77s   |   4400     |          5               | 
+
 
 ## 3. Môi trường phát triển
 - Ngôn ngữ: Python
